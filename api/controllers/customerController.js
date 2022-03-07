@@ -16,7 +16,7 @@ class CustomerController{
                 },process.env.TOKEN_SECRET,{
                     expiresIn:'45m'
                 });
-                res.cookie('token',token);
+                res.cookie('token',token,{httpOnly:true, path:'/'});
                 res.json({success:true,data:{
                     name:user.name,
                     address:user.address,
