@@ -3,7 +3,8 @@ class CustomerMiddleware{
     post(req,res,next){
         const schema=joi.object({
             username:joi.string().min(5).max(50).exist(),
-            password:joi.string().min(4).max(30).exist()
+            password:joi.string().min(4).max(30).exist(),
+            name:joi.string().min(4).max(50).exist()
         })
         const validate=schema.validate(req.body);
         if(!validate.error){

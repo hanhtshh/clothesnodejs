@@ -14,7 +14,7 @@ class CustomerController{
                 const token=jwt.sign({
                     _id:user._id
                 },process.env.TOKEN_SECRET,{
-                    expiresIn:'45m'
+                    expiresIn:'15m'
                 });
                 res.cookie('token',token,{httpOnly:true, path:'/'});
                 res.json({success:true,data:{
@@ -55,7 +55,7 @@ class CustomerController{
                 const user=await customerModel.create({
                     username: req.body.username,
                     password:pass,
-                    name:'trong',
+                    name:req.body.name,
                     email:'trong',
                     address:'trong',
                     admin:0,
