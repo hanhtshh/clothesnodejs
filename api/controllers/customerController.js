@@ -16,14 +16,15 @@ class CustomerController{
                 },process.env.TOKEN_SECRET,{
                     expiresIn:'15m'
                 });
-                res.cookie('token',token,{httpOnly:true, path:'/'});
                 res.json({success:true,data:{
                     name:user.name,
                     address:user.address,
                     telephone:user.telephone,
                     email:user.email,
                     admin:user.admin
-                }})
+                },
+                token:token
+            })
             }
             else{
                 res.status(400).json({succes:false,message:'password is not correct'});
