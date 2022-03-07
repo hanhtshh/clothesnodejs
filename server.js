@@ -1,0 +1,15 @@
+const express=require('express');
+require('dotenv').config();
+const app=express();
+const helmet=require('helmet');
+const cors=require('cors');
+const dbconnect=require('./api/models');
+const router=require('./api/routers/index');
+const cookieParser= require('cookie-parser');
+dbconnect();
+app.use(helmet());
+app.use(cookieParser());
+app.use(express.json());
+app.use(cors());
+app.listen(process.env.PORT || 3000);
+router(app);
