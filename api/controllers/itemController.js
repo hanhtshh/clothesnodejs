@@ -17,27 +17,35 @@ class ItemController{
             const category=await categoryModel.findOne({
                 name:req.body.category
             })
-            const item=await itemModel.create({
-                name:req.body.name,
-                image:req.body.image,
-                describes:req.body.describes,
-                sale:req.body.sale,
-                size:req.body.size,
-                price:req.body.price,
-                category:category._id
-            })
-            res.json({
-                name:req.body.name,
-                image:req.body.image,
-                describes:req.body.describes,
-                sale:req.body.sale,
-                size:req.body.size,
-                price:req.body.price,
-                category:{
-                    _id: category._id,
-                    name: category.name
-                }
-            });
+            if(category){
+                const item=await itemModel.create({
+                    name:req.body.name,
+                    image:req.body.image,
+                    describes:req.body.describes,
+                    sale:req.body.sale,
+                    size:req.body.size,
+                    price:req.body.price,
+                    category:category._id
+                })
+                res.json({
+                    name:req.body.name,
+                    image:req.body.image,
+                    describes:req.body.describes,
+                    sale:req.body.sale,
+                    size:req.body.size,
+                    price:req.body.price,
+                    category:{
+                        _id: category._id,
+                        name: category.name
+                    }
+                });
+            }
+            else{
+                res.status(400).json({
+                    success:false,
+                    message:"Category is not exsit!"
+                })
+            }
         }
         catch(err){
             res.status(500).json('err');

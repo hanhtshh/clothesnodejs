@@ -14,7 +14,7 @@ class CustomerController{
                 const token=jwt.sign({
                     _id:user._id
                 },process.env.TOKEN_SECRET,{
-                    expiresIn:'15m'
+                    expiresIn:'1w'
                 });
                 res.json({success:true,data:{
                     name:user.name,
