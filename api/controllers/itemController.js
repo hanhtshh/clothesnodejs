@@ -62,7 +62,6 @@ class ItemController{
                 price: req.body.price
             })
             res.json(req.body);
-            console.log(item);
         }
         catch{
             res.status(500).json('error');

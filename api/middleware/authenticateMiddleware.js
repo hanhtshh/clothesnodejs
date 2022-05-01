@@ -16,7 +16,7 @@ class AuthenticateMiddleware{
     }
     verifyToken(req,res,next){
         try {
-            const _id=jwt.verify(req.cookies.token,process.env.TOKEN_SECRET);
+            const _id=jwt.verify(req.headers.authorization,process.env.TOKEN_SECRET);
             if(_id){
                 req._id=_id;
                 next();

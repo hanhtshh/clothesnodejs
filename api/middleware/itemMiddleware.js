@@ -14,11 +14,11 @@ class ItemMiddleware{
             category:joi.string().max(200).exist()
         })
         const validate=schema.validate(req.body);
-        console.log(validate)
         if(!validate.error){
             next();
         }
         else{
+            console.log(validate.error);
             res.status(400).json('syntax error');
         }
     }
