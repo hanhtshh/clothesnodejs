@@ -8,6 +8,6 @@ router.get('/',authenticateMiddleware.verifyToken,oderController.get);
 router.post('/',authenticateMiddleware.verifyToken,oderMiddleware.postandput,oderController.post);
 router.put('/:_id',authenticateMiddleware.verifyToken,authenticateMiddleware.authenAdmin,oderMiddleware.postandput,oderController.put);
 router.delete('/:_id',authenticateMiddleware.verifyToken,oderController.deleteFailed);
-router.delete('/admindeteleFailed',authenticateMiddleware.verifyToken,authenticateMiddleware.authenAdmin,oderController.admindeleteFailed);
+router.delete('/admindeleteFailed/:_id',authenticateMiddleware.verifyToken,authenticateMiddleware.authenAdmin,oderController.admindeleteFailed);
 router.delete('/admindelete/:_id',authenticateMiddleware.verifyToken,authenticateMiddleware.authenAdmin,oderController.admindelete);
 module.exports=router;
