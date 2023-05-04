@@ -4,7 +4,7 @@ const categoryMiddleware = require('../middleware/categoryMiddleware');
 const authenticateMiddleware = require('../middleware/authenticateMiddleware');
 const router=express.Router();
 router.get('/',categoryController.get);
-router.post('/',authenticateMiddleware.verifyToken,authenticateMiddleware.authenAdmin,categoryMiddleware.post,categoryController.post);
+router.post('/',categoryMiddleware.post,categoryController.post);
 router.put('/:_id',authenticateMiddleware.verifyToken,authenticateMiddleware.authenAdmin,categoryMiddleware.post,categoryController.update);
 router.delete('/:_id',authenticateMiddleware.verifyToken,authenticateMiddleware.authenAdmin,categoryController.delete);
 module.exports=router;

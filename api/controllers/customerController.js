@@ -57,10 +57,10 @@ class CustomerController{
                     username: req.body.username,
                     password:pass,
                     name:req.body.name,
-                    email:'trong',
-                    address:'trong',
+                    email:'',
+                    address:'',
                     admin:0,
-                    telephone:'trong'
+                    telephone:''
                 })
                 return res.json({succes:true, message:'create account successfully!'});
             }

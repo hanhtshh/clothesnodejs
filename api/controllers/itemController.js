@@ -51,6 +51,26 @@ class ItemController {
             res.status(500).json('err');
         }
     }
+    async getItemDetail(req, res) {
+        try {
+            console.log(req.params)
+            const item = await itemModel.findById(req.params.id).populate("category");
+            if (item) {
+                res.json({
+                    item
+                });
+            }
+            else {
+                res.status(400).json({
+                    success: false,
+                    message: "Category is not exsit!"
+                })
+            }
+        }
+        catch (err) {
+            res.status(500).json('err');
+        }
+    }
     async update(req, res) {
         try {
             const item = await itemModel.updateOne({ _id: req.params._id }, {
