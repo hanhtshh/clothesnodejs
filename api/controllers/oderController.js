@@ -24,6 +24,16 @@ class OderController {
             res.status(500).json({ success: false, message: "loi server" });
         }
     }
+    async getById(req, res) {
+        try {
+            const oderlist = await oderModel.findOne({ customer: req._id, _id: req.params._id })
+                .populate("oder_list.item", ["_id", "name", "image", "price", "sale"])
+            res.json({ success: true, data: oderlist })
+        }
+        catch (err) {
+            res.status(500).json({ success: false, message: "loi server" });
+        }
+    }
     async post(req, res) {
         try {
             const oder = await oderModel.create({
@@ -50,13 +60,7 @@ class OderController {
     }
     async put(req, res) {
         try {
-            const oder = await oderModel.updateOne({ _id: req.params._id }, {
-                telephone: req.body.telephone,
-                address: req.body.address,
-                cost: req.body.cost,
-                oder_date: req.body.oder_date,
-                oder_list: req.body.oder_list
-            })
+            const oder = await oderModel.updateOne({ _id: req.params._id }, req.body)
             res.json(req.body)
         }
         catch (err) {
