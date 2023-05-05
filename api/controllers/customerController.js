@@ -104,7 +104,7 @@ class CustomerController{
         try {
             const oder=await oderModel.deleteMany({customer:req.params._id});
             const user= await customerModel.deleteOne({_id:req.params._id});
-            if(user.deletedCount && oder.deletedCount){
+            if(user.deletedCount){
                 res.json('succes');
             }
             else{
