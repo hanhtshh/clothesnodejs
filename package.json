@@ -19,6 +19,7 @@
     "joi": "^17.5.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.6",
+    "node-fetch": "^2.6.9",
     "nodemon": "^2.0.15"
   }
 }

@@ -11,4 +11,6 @@ router.put('/:_id',oderMiddleware.postandput,oderController.put);
 router.delete('/:_id',authenticateMiddleware.verifyToken,oderController.deleteFailed);
 router.delete('/admindeleteFailed/:_id',authenticateMiddleware.verifyToken,oderController.admindeleteFailed);
 router.delete('/admindelete/:_id',authenticateMiddleware.verifyToken,authenticateMiddleware.authenAdmin,oderController.admindelete);
+
+// Vui lòng tham khảo thêm tại code demo
 module.exports=router;
