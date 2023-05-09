@@ -18,6 +18,10 @@ const oderSchema = new mongoose.Schema({
         type: String,
         enum: ['Pending', 'Processing', 'Delivered', 'Cancle'],
         default: 'Pending'
+    },
+    paypalStatus: {
+        type: Boolean,
+        default: false
     }
 })
 const oderModel = mongoose.model("oder", oderSchema);

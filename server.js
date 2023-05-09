@@ -7,6 +7,10 @@ const dbconnect = require('./api/models');
 const router = require('./api/routers/index');
 const cookieParser = require('cookie-parser');
 const { default: fetch } = require('node-fetch');
+const oderModel = require('./api/models/oderModels');
+const itemModel = require('./api/models/itemModels');
+const authenticateMiddleware = require('./api/middleware/authenticateMiddleware');
+const oderMiddleware = require('./api/middleware/oderMiddleware');
 dbconnect();
 app.use(helmet());
 app.use(cookieParser());
@@ -30,9 +34,9 @@ app.post("/create-paypal-order", async (req, res) => {
 });
 
 // capture payment & store order information or fullfill order
-app.post("/capture-paypal-order", async (req, res) => {
+app.post("/capture-paypal-order", authenticateMiddleware.verifyToken, oderMiddleware.postandput, async (req, res) => {
     const { orderID } = req.body;
-    const captureData = await capturePayment(orderID);
+    const captureData = await capturePayment(orderID, req);
     // TODO: store payment information such as the transaction ID
     res.json(captureData);
 });
@@ -68,7 +72,7 @@ async function createOrder() {
 }
 
 // use the orders api to capture payment for an order
-async function capturePayment(orderId) {
+async function capturePayment(orderId, req) {
     const accessToken = await generateAccessToken();
     const url = `${baseURL.sandbox}/v2/checkout/orders/${orderId}/capture`;
     const response = await fetch(url, {
@@ -80,6 +84,25 @@ async function capturePayment(orderId) {
     });
     const data = await response.json();
     console.log(data)
+    if (data?.status === 'COMPLETED') {
+        const oder = await oderModel.create({
+            telephone: req.body.telephone,
+            address: req.body.address,
+            cost: req.body.cost,
+            oder_date: req.body.oder_date,
+            oder_list: req.body.oder_list,
+            customer: req._id,
+            paypalStatus: true
+        })
+        await Promise.all(req.body.oder_list.map(async oder => await itemModel.updateOne({
+            _id: oder.item,
+            'size.name': oder.size
+        }, {
+            '$inc': {
+                'size.$.quantity': -oder.quantity
+            }
+        })))
+    }
     return data;
 }
 
