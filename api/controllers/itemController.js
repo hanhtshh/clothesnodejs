@@ -4,9 +4,19 @@ const itemModel = require("../models/itemModels");
 class ItemController {
     async get(req, res) {
         try {
-            const list = await itemModel.find({})
-                .populate("category");
-            res.json(list);
+            const keySearch = req.query.keySearch;
+            if (keySearch) {
+                const list = await itemModel.find({
+                    "name": { "$regex": keySearch, "$options": "i" }
+                })
+                    .populate("category");
+                res.json(list);
+            }
+            else {
+                const list = await itemModel.find({})
+                    .populate("category");
+                res.json(list);
+            }
         }
         catch (err) {
             res.status(404).json('not found');

@@ -12,7 +12,6 @@ class OderMiddleware {
                 size: joi.string().min(1).max(5)
             }).optional()),
             status: joi.string().optional(),
-            paypalStatu: joi.boolean().optional(),
             orderID: joi.string().optional()
         })
         const validate = schema.validate(req.body);
