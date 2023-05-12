@@ -26,7 +26,7 @@ class OderController {
     }
     async getById(req, res) {
         try {
-            const oderlist = await oderModel.findOne({ customer: req._id, _id: req.params._id })
+            const oderlist = await oderModel.findOne({ _id: req.params._id })
                 .populate("oder_list.item", ["_id", "name", "image", "price", "sale"])
             res.json({ success: true, data: oderlist })
         }
