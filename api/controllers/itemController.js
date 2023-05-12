@@ -7,7 +7,7 @@ class ItemController {
             const keySearch = req.query.keySearch;
             if (keySearch) {
                 const list = await itemModel.find({
-                    "name": new RegExp('^' + keySearch + '$', "i")
+                    "name": { "$regex": keySearch, "$options": "i" }
                 })
                     .populate("category");
                 res.json(list);
