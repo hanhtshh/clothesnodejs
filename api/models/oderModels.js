@@ -17,7 +17,7 @@ const oderSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['Pending', 'Processing', 'Delivered', 'Cancle'],
-        default: 'Pending'
+        default: 'Pending' 
     },
     paypalStatus: {
         type: Boolean,
