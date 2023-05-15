@@ -16,6 +16,7 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
+console.log('ok')
 // For a fully working example, please see:
 // https://github.com/paypal-examples/docs-examples/tree/main/standard-integration
 
