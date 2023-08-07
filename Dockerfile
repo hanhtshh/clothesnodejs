@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Thiết lập cổng mà ứng dụng sẽ lắng nghe
-EXPOSE 3000
+EXPOSE 4000
 
 # Chạy lệnh để khởi động ứng dụng khi container được chạy
 CMD [ "npm", "start" ]
